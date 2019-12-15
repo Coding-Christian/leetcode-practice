@@ -11,11 +11,11 @@
     <a href="https://leetcode.com/problems/defanging-an-ip-address/">LeetCode Link</a>
     <hr>
   </div>
-    <input type="text" name="ipAdxress" id="ipAddress">
+  <input type="text" name="ipAdxress" id="ipAddress">
   <button id="defang" onclick="">Defang</button>
   <p id="output"></p>
-  <script>
 
+  <script>
     const ipInput = document.querySelector('#ipAddress');
     document.querySelector('#defang').onclick = defangIpAddress;
 
@@ -23,7 +23,6 @@
       const defangedIp = ipInput.value.replace(/\./g, '[.]');
       document.querySelector('#output').textContent = defangedIp;
     }
-
   </script>
 </body>
 </html>
