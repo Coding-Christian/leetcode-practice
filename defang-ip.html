@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Defang an IP address</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/defanging-an-ip-address/">LeetCode Link</a>
+    <hr>
+  </div>
+    <input type="text" name="ipAdxress" id="ipAddress">
+  <button id="defang" onclick="">Defang</button>
+  <p id="output"></p>
+  <script>
+
+    const ipInput = document.querySelector('#ipAddress');
+    document.querySelector('#defang').onclick = defangIpAddress;
+
+    function defangIpAddress() {
+      const defangedIp = ipInput.value.replace(/\./g, '[.]');
+      document.querySelector('#output').textContent = defangedIp;
+    }
+
+  </script>
+</body>
+</html>
