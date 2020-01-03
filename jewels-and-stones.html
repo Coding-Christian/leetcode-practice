@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Jewels and Stones</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/jewels-and-stones/">LeetCode Link</a>
+    <p>
+      Jewels is a series of characters representing the type of stones that are gems.
+      No character in jewels should be duplicated.
+      Stones is a series of characters to be searched for gems.
+      Characters in stones can be duplicated and all will count towards final gem count.
+      Find Jewels will return the number of gems located in the stones.
+    </p>
+    <hr>
+  </div>
+  <h3>Jewels</h3>
+  <input type="text" name="jewels" id="jewels">
+  <h3>Stones</h3>
+  <input type="text" name="stones" id="stones">
+  <button id="findJewels" onclick="clickHandler()">Find Jewels</button>
+  <p id="output"></p>
+
+  <script>
+    function clickHandler() {
+      const jewels = document.getElementById('jewels').value;
+      const stones = document.getElementById('stones').value;
+      const jewelCount = findJewels(jewels, stones);
+      document.getElementById('output').textContent = `${jewelCount} jewels found.`;
+    }
+
+    function findJewels(J, S) {
+      let jewelCount = 0;
+      const jewels = new Set(J.split(''));
+      jewels.forEach((jewel) => { jewelCount += S.split(jewel).length - 1; });
+      return jewelCount;
+    };
+  </script>
+</body>
+</html>
