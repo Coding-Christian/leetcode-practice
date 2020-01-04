@@ -26,9 +26,27 @@
   <p id="output"></p>
 
   <script>
-  function clickHandler() {}
+  function clickHandler() {
+    let numbers = document.getElementById('numbers').value;
+    numbers = numbers.replace(/[^\d\,]/g, "");
+    numbers = numbers.split(',');
+    let target = Number(document.getElementById('target').value);
+    const match = findTarget(numbers, target);
+    document.getElementById('output').textContent = match;
+  }
 
-  function findTarget(numArray) {}
+  function findTarget(numArr, target) {
+    for (let firstIndex = 0; firstIndex < numArr.length; firstIndex++) {
+      for (let secondIndex = firstIndex + 1; secondIndex < numArr.length; secondIndex++) {
+        const num1 = Number(numArr[firstIndex]);
+        const num2 = Number(numArr[secondIndex]);
+        if (num1 + num2 === target) {
+          return `The numbers in positions ${firstIndex + 1} and ${secondIndex + 1} add up to ${target}`;
+        }
+      }
+    }
+    return `No pair of numbers adds up to ${target}`;
+  }
   </script>
 </body>
 </html>
