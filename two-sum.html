@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Two Sum</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/two-sum/">LeetCode Link</a>
+    <p>
+      Numbers is a list of integers separated, by commas, to be searched.
+      Any character not a number or a comma will be ignored.
+      Target is an integer that should be the sum of two numbers in 'Numbers'.
+      Clicking Find Target will search the list of Numbers for two that add up to the target.
+      Their position in the list will be returned if a match is found.
+    </p>
+    <hr>
+  </div>
+  <h3>Numbers</h3>
+  <input type="text" name="numbers" id="numbers">
+  <h3>Target</h3>
+  <input type="text" name="target" id="target">
+  <button id="findTarget" onclick="clickHandler()">Find Target</button>
+  <p id="output"></p>
+
+  <script>
+  function clickHandler() {
+    let numbers = document.getElementById('numbers').value;
+    numbers = numbers.replace(/[^\d\,]/g, "");
+    numbers = numbers.split(',');
+    let target = Number(document.getElementById('target').value);
+    const match = findTarget(numbers, target);
+    document.getElementById('output').textContent = match;
+  }
+
+  function findTarget(numArr, target) {
+    for (let firstIndex = 0; firstIndex < numArr.length; firstIndex++) {
+      for (let secondIndex = firstIndex + 1; secondIndex < numArr.length; secondIndex++) {
+        const num1 = Number(numArr[firstIndex]);
+        const num2 = Number(numArr[secondIndex]);
+        if (num1 + num2 === target) {
+          return `The numbers in positions ${firstIndex + 1} and ${secondIndex + 1} add up to ${target}`;
+        }
+      }
+    }
+    return `No pair of numbers adds up to ${target}`;
+  }
+  </script>
+</body>
+</html>
