@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Container With Most Water</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/container-with-most-water/">LeetCode Link</a>
+    <p>
+      Height Map should be a list of positive integers separated by commas.
+      All non-integer/comma characters will be ignored.
+      Clicking Find Largest will search the list for the largest container by volume, treating each number as a wall that many units tall.
+      The volume of the container and the positions of the two retaining walls will be returned.
+      Containers may cut through other walls.
+    </p>
+    <hr>
+  </div>
+  <h3>Height Map</h3>
+  <input type="text" name="heightMap" id="heightMap">
+  <button id="findLargest" onclick="handleClick()">Find Largest Container</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let heightMap = document.getElementById('heightMap').value;
+      heightMap = heightMap.replace(/[^\d\,]/g, '').split(',');
+      const output = findLargest(heightMap);
+      const response = `The largest container has a volume of ${output[0]}, bounded by walls at positions ${output[1][0]} and ${output[1][1]}.`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function findLargest(heightMap) {
+      let highestVolume = 0;
+      let highestPositions = [0, 0];
+      for (let currentIndex = 0; currentIndex < heightMap.length - 1; currentIndex++) {
+        for (let secondIndex = currentIndex + 1; secondIndex < heightMap.length; secondIndex++) {
+          const volume = (secondIndex - currentIndex) * Math.min(heightMap[currentIndex], heightMap[secondIndex]);
+          if (volume > highestVolume) {
+            highestVolume = volume;
+            highestPositions = [currentIndex + 1, secondIndex + 1];
+          }
+        }
+      }
+      return [highestVolume, highestPositions];
+    }
+  </script>
+</body>
+</html>
