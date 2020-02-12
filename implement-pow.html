@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Implement Math.pow(x, n)</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/powx-n/">LeetCode Link</a>
+    <p>
+      Base should be a number in between <b>-100</b> and <b>100</b>.
+      Exponent should be an integer between <b>-2<sup>31</sup></b> and <b>2<sup>31</sup> - 1</b>.
+      All non-compliant characters will be ignored.
+      Pressing Calculate exponent will return the result of calculating Base to the power of Exponent, without using JavaScript's built in Math.pow().
+    </p>
+    <hr>
+  </div>
+  <h3>Base</h3>
+  <input type="text" name="base" id="base">
+  <h3>Exponent</h3>
+  <input type="number" name="exponent" id="exponent">
+  <button id="calculateExponential" onclick="handleClick()">Calculate Exponential</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let base = document.getElementById('base').value;
+      base = base.replace(/[^\d\.\-]/g, '');
+      const splitDec = base.split('.');
+      if (splitDec.length > 2) {
+        base = `${splitDec[0]}.${splitDec.slice(1).join('')}`;
+      }
+      if (base.includes('-')) {
+        base = `-${base.replace('-', '')}`;
+      }
+      let exponent = document.getElementById('exponent').value;
+      exponent = exponent.replace(/[^\d\-]/g, '');
+      if (exponent.includes('-')) {
+        exponent = `-${exponent.replace('-', '')}`;
+      }
+      const output = calculateExponential(Number(base), Number(exponent));
+      const response = `${base} to the power of ${exponent} is equal to ${output}.`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function calculateExponential(x, n) {
+      if (n === 0 || x === 1) {return 1;}
+      if (x === -1 && n % 2 === 0) {return 1;}
+      if (x === -1 && n % 2 !== 0) {return -1;}
+      let total = 1;
+      const posExp = Math.abs(n);
+      const halfPow = calculateExponential(x, Math.floor(posExp/2));
+      if (n % 2) {total = x * halfPow * halfPow}
+      else {total = halfPow * halfPow}
+      return (n > 0) ? total.toFixed(4) : (1/total).toFixed(4);
+    }
+  </script>
+</body>
+</html>
