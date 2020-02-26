@@ -13,14 +13,14 @@
       Balanced strings are those who have equal quantity of <b>L</b> and <b>R</b> characters.
       String should be a sequence of up to <b>100</b> characters, each either <b>L</b> or <b>R</b>.
       Any characters other than capital <b>L</b> and <b>R</b> will be ignored.
-      Clicking Find Substrings will return the number of non-overlapping, balanced substrings that can be made from the balanced string.
+      Clicking Find Balanced Substrings will return the number of non-overlapping, balanced substrings that can be made from the balanced string.
       If the string is not balanced, <b>0</b> will be returned.
     </p>
     <hr>
   </div>
   <h3>String</h3>
   <input type="text" name="string" id="string" maxlength="100">
-  <button id="findBalancedSubstrings" onclick="handleClick()">Find Largest Container</button>
+  <button id="findBalancedSubstrings" onclick="handleClick()">Find Balanced Substrings</button>
   <p id="output"></p>
 
   <script>
@@ -31,13 +31,25 @@
         response = 'Please provide a balanced string.';
       } else {
         const output = findBalancedSubstrings(string);
-        response = output;
+        response = `There are ${output[0]} balanced substrings in the provided string: ${output[1].join(' ')}.`;
       }
       document.getElementById('output').textContent = response;
     }
 
     function findBalancedSubstrings(string) {
-
+      let counter = 0, str = string, balanced = [];
+      while (str.length) {
+        for (let index = 2; index <= str.length; index++) {
+            let substr = str.substring(0, index);
+            if (substr.split("L").length === substr.split("R").length) {
+                str = str.substring(index);
+                balanced.push(substr);
+                counter++;
+                break;
+            }
+        }
+    }
+    return [counter, balanced];
     }
   </script>
 </body>
