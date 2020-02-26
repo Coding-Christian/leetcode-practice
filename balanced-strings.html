@@ -25,11 +25,19 @@
 
   <script>
     function handleClick() {
-      return null;
+      let response, string = document.getElementById('string').value;
+      string = string.replace(/[^LR]/g, '');
+      if (string.split("L").length !== string.split("R").length) {
+        response = 'Please provide a balanced string.';
+      } else {
+        const output = findBalancedSubstrings(string);
+        response = output;
+      }
+      document.getElementById('output').textContent = response;
     }
 
     function findBalancedSubstrings(string) {
-      return null;
+
     }
   </script>
 </body>
