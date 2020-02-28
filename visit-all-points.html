@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Visit All Points</title>
+</head>
+
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/minimum-time-visiting-all-points/">LeetCode Link</a>
+    <p>
+      Given a list of points in <b>[x|y]</b> format, find the shortest time required to visit all points.
+      The points will be visited in order and it is assumed to take 1 second to travel one unit horizontally, vertically, or diagonally.
+      Points should be a list of coordinates in <b>[x|y]</b> format separated by commas.
+      Clicking Find Shortest Time will return the number of seconds to travel between the points.
+    </p>
+    <hr>
+  </div>
+  <h3>Points</h3>
+  <input type="text" name="points" id="points" maxlength="100">
+  <button id="findShortestTime" onclick="handleClick()">Find Shortest Time</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let points = document.getElementById('points').value;
+      points = points.split(',');
+      for (let point in points) {
+        points[point] = points[point].substring(1, points[point].length - 1).split('|');
+      }
+      const output = findShortestTime(points);
+      response = `The shortest time to visit all points is ${output} seconds.`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function findShortestTime(points) {
+      let counter = 0;
+      for (let point = 0; point < points.length - 1; point++) {
+        const xDist = Math.abs(Number(points[point][0]) - Number(points[point + 1][0]));
+        const yDist = Math.abs(Number(points[point][1]) - Number(points[point + 1][1]));
+        counter += ((xDist > yDist) ? xDist : yDist);
+      }
+      return counter;
+    }
+  </script>
+</body>
+
+</html>
