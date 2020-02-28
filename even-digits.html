@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Even Digits</title>
+</head>
+
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/find-numbers-with-even-number-of-digits/">LeetCode Link</a>
+    <p>
+      Numbers should be a list of integers separated by commas.
+      Any non-integer characters will be ignored.
+      Clicking Find Even Digits will return the count of numbers in the list that had an even number of digits.
+    </p>
+    <hr>
+  </div>
+  <h3>Numbers</h3>
+  <input type="text" name="numbers" id="numbers" maxlength="100">
+  <button id="findEvenDigits" onclick="handleClick()">Find Even Digits</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let numbers = document.getElementById('numbers').value;
+      numbers = numbers.replace(/[^\d\,]/g, '').split(',');
+      const output = findEvenDigits(numbers);
+      response = `There are ${output[0]} numbers with even digits in the list: ${output[1].join(' ')}.`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function findEvenDigits(numbers) {
+      let counter = 0, evenDigits = [];
+      for (let num in numbers) {
+        if (!(numbers[num].length % 2) && numbers[num].length) {
+          evenDigits.push(numbers[num]);
+          counter++;
+        }
+      }
+      return [counter, evenDigits];
+    }
+  </script>
+</body>
+
+</html>
