@@ -8,7 +8,33 @@
 <body>
   <script>
 
+let atomStr = "((N42)24(OB40Li30CHe3O48LiNN26)33(C12Li48N30H13HBe31)21(BHN30Li26BCBe47N40)15(H5)16)14";
 
+while (atomStr.indexOf('(') > -1) {
+  atomStr = simplifyAtoms(atomStr);
+}
+// atomStr = combineAtoms(atomStr);
+console.log(atomStr);
+
+function simplifyAtoms(atomStr) {
+  const openIndex = atomStr.lastIndexOf("(");
+  const closeIndex = atomStr.indexOf(")");
+  let lastIndex;
+  let multiplier = 1;
+  if (/[\d]/.test(atomStr[closeIndex + 1])) {
+    lastIndex = closeIndex + atomStr.substring(closeIndex).match(/\d+/)[0].length;
+    multiplier *= Number(atomStr.substring(closeIndex).match(/\d+/)[0]);
+  }
+  const strArr = atomStr.substring(openIndex + 1, closeIndex).split(/([A-Z][a-z]*)/).slice(1);
+  for (let index in strArr) {
+    if (!strArr[index].length) {
+      strArr[index] = multiplier;
+    } else if (Number(strArr[index])) {
+      strArr[index] = Number(strArr[index]) * multiplier;
+    }
+  }
+  return atomStr.substring(0, openIndex) + strArr.join('') + atomStr.substring(lastIndex + 1);
+}
 
   </script>
 </body>
