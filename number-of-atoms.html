@@ -8,12 +8,12 @@
 <body>
   <script>
 
-let atomStr = "((N42)24(OB40Li30CHe3O48LiNN26)33(C12Li48N30H13HBe31)21(BHN30Li26BCBe47N40)15(H5)16)14";
+let atomStr = "(OB40Li30CHe3O48LiNN26)33C12Li48N30H13HBe31";
 
 while (atomStr.indexOf('(') > -1) {
   atomStr = simplifyAtoms(atomStr);
 }
-// atomStr = combineAtoms(atomStr);
+atomStr = combineAtoms(atomStr);
 console.log(atomStr);
 
 function simplifyAtoms(atomStr) {
@@ -34,6 +34,38 @@ function simplifyAtoms(atomStr) {
     }
   }
   return atomStr.substring(0, openIndex) + strArr.join('') + atomStr.substring(lastIndex + 1);
+}
+
+function combineAtoms(atomStr) {
+  let strArr = atomStr.split(/([A-Z][a-z]*)/);
+  strArr = strArr.filter(value => value.length);
+  let combinedAtoms = {};
+  for (let index = 0; index < strArr.length; index++) {
+    if (!Number(strArr[index])) {
+      if (combinedAtoms[strArr[index]] && Number(strArr[index + 1])) {
+        combinedAtoms[strArr[index]] += Number(strArr[index + 1]);
+      } else if (combinedAtoms[strArr[index]] && !Number(strArr[index + 1])) {
+        combinedAtoms[strArr[index]] += 1;
+      } else if (!combinedAtoms[strArr[index]] && Number(strArr[index + 1])) {
+        combinedAtoms[strArr[index]] = Number(strArr[index + 1]);
+      } else {
+        combinedAtoms[strArr[index]] = 1;
+      }
+    }
+  }
+  let atomArr = [];
+  for (atom in combinedAtoms) {
+    atomArr.push([atom, combinedAtoms[atom]]);
+  }
+  atomArr = atomArr.sort((a, b) => {
+    if (a[0] > b [0]) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  atomArr = atomArr.flat().filter(value => value !== 1).join('');
+  return atomArr;
 }
 
   </script>
