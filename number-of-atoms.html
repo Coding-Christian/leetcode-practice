@@ -8,13 +8,15 @@
 <body>
   <script>
 
-let atomStr = "(OB40Li30CHe3O48LiNN26)33C12Li48N30H13HBe31";
+let atoms = "Fe(OH)2SO4";
 
-while (atomStr.indexOf('(') > -1) {
-  atomStr = simplifyAtoms(atomStr);
+while (atoms.indexOf('(') > -1) {
+  atoms = simplifyAtoms(atoms);
 }
-atomStr = combineAtoms(atomStr);
-console.log(atomStr);
+atoms = combineAtoms(atoms);
+atoms = sortAtoms(atoms);
+
+console.log(atoms);
 
 function simplifyAtoms(atomStr) {
   const openIndex = atomStr.lastIndexOf("(");
@@ -53,9 +55,13 @@ function combineAtoms(atomStr) {
       }
     }
   }
+  return combinedAtoms;
+}
+
+function sortAtoms(atomObj) {
   let atomArr = [];
-  for (atom in combinedAtoms) {
-    atomArr.push([atom, combinedAtoms[atom]]);
+  for (atom in atomObj) {
+    atomArr.push([atom, atomObj[atom]]);
   }
   atomArr = atomArr.sort((a, b) => {
     if (a[0] > b [0]) {
