@@ -6,163 +6,38 @@
   <title>Number of Atoms</title>
 </head>
 <body>
+
   <script>
-
-let atoms = "K4(ON(SO3)2)2";
-
-while (/\((\w*)\)(\d)/.test(atoms)) {
-  const match = (atoms.match(/\((\w*)\)(\d)/));
-  let innerArr = match[1].split(/([A-Z][a-z]*)/g).slice(1);
-  const multiplier = Number(match[2]);
-  innerArr = innerArr.map(char => (char.length ? char : '1'));
-  innerArr = innerArr.map(char => Number(char) ? (Number(char)) * multiplier : char);
-  atoms = atoms.replace(match[0], innerArr.join(''));
-}
-atoms = atoms.split(/([A-Z][a-z]*\d*)/g).filter(char => char.length);
-atoms = atoms.sort().join('');
-atoms = atoms.split(/([A-Z][a-z]*)/g).slice(1);
-atoms = atoms.map(char => (char.length ? char : '1')).reduce(reducer, []);
-atoms = atoms.filter(char => char != '1').join('');
-console.log(atoms);
-
-function reducer(accumulator, currentValue, index, array) {
-  if (!accumulator.includes(currentValue) && !Number(currentValue)) {
-    accumulator.push(currentValue);
-    if (Number(array[index + 1])) {
-      accumulator.push(array[index + 1]);
+    let atoms = 'K4(ON(SO3)2)2';
+    while (/\((\w*)\)(\d)/.test(atoms)) {
+      const match = (atoms.match(/\((\w*)\)(\d*)/));
+      let innerArr = match[1].split(/([A-Z][a-z]*)/g).slice(1);
+      const multiplier = Number(match[2]);
+      innerArr = innerArr.map(char => (char.length ? char : '1'));
+      innerArr = innerArr.map(char => Number(char) ? (Number(char)) * multiplier : char);
+      atoms = atoms.replace(match[0], innerArr.join(''));
     }
-  } else if (accumulator.includes(currentValue) && !Number(currentValue)) {
-    if (Number(array[index + 1])) {
-      let accNum  = accumulator[accumulator.indexOf(currentValue) + 1]
-      accumulator[accumulator.indexOf(currentValue) + 1] = Number(accNum) + Number(array[index + 1]);
+    atoms = atoms.split(/([A-Z][a-z]*\d*)/g).filter(char => char.length);
+    atoms = atoms.sort().join('');
+    atoms = atoms.split(/([A-Z][a-z]*)/g).slice(1);
+    atoms = atoms.map(char => (char.length ? char : '1')).reduce(reducer, []);
+    atoms = atoms.filter(char => char != '1').join('');
+    console.log(atoms);
+
+    function reducer(accumulator, currentValue, index, array) {
+      if (!accumulator.includes(currentValue) && !Number(currentValue)) {
+        accumulator.push(currentValue);
+        if (Number(array[index + 1])) {
+          accumulator.push(array[index + 1]);
+        }
+      } else if (accumulator.includes(currentValue) && !Number(currentValue)) {
+        if (Number(array[index + 1])) {
+          let accNum  = accumulator[accumulator.indexOf(currentValue) + 1]
+          accumulator[accumulator.indexOf(currentValue) + 1] = Number(accNum) + Number(array[index + 1]);
+        }
+      }
+      return accumulator;
     }
-  }
-  return accumulator;
-}
-
-// function parseAtoms(atoms) {
-//   let name = '', number = '1', counter = {}, totals = {};
-//   for (let index = 0; index < atoms.length; index++) {
-//     const char = atoms[index];
-//     if (/[A-Z]/.test(char)) {
-//       if (name.length) {
-//         counter[name] = number;
-//       } else if (Object.keys(counter).length) {
-//         totals = addObjects(counter, totals);
-//         counter = {};
-//       }
-//       name = char;
-//     } else if (/[a-z]/.test(char)) {
-//       name += char;
-//     } else if (char === '(') {
-//       totals[name] = number;
-//       totals = addObjects(counter, totals);
-//       name = '';
-//       number = '1';
-//       counter = {};
-//     } else if (/\d/.test(char)) {
-//       if (name.length) {
-//         (number === '1') ? (number = char) : (number += char);
-//       } else {
-//         let secondIndex = index;
-//         while (/\d/.test(atoms[secondIndex])) {
-//           (number === '1') ? (number = atoms[secondIndex]) : (number += atoms[secondIndex]);
-//           secondIndex++;
-//         }
-//         for (let atom in counter) {
-//           counter[atom] = Number(counter[atom]) * Number(number);
-//         }
-//         index = secondIndex - 1;
-//         number = '1';
-//       }
-//     } else if (char === ')') {
-//       counter[name] = number;
-//       name = '';
-//       number = '1';
-//     }
-//   }
-//   if (name.length) {
-//     counter[name] = number;
-//   }
-//   totals = addObjects(counter, totals);
-//   return totals;
-// }
-
-// function addObjects(counter, totals) {
-//   for (let atom in counter) {
-//     if (totals[atom]) {
-//       totals[atom] = Number(totals[atom]) + Number(counter[atom]);
-//     } else {
-//       totals[atom] = counter[atom];
-//     }
-//   }
-//   return totals;
-// }
-
-// while (atoms.indexOf('(') > -1) {
-//   atoms = simplifyAtoms(atoms);
-// }
-// atoms = combineAtoms(atoms);
-// atoms = sortAtoms(atoms);
-
-// console.log(atoms);
-
-// function simplifyAtoms(atomStr) {
-//   const openIndex = atomStr.lastIndexOf("(");
-//   const closeIndex = atomStr.indexOf(")");
-//   let lastIndex;
-//   let multiplier = 1;
-//   if (/[\d]/.test(atomStr[closeIndex + 1])) {
-//     lastIndex = closeIndex + atomStr.substring(closeIndex).match(/\d+/)[0].length;
-//     multiplier *= Number(atomStr.substring(closeIndex).match(/\d+/)[0]);
-//   }
-//   const strArr = atomStr.substring(openIndex + 1, closeIndex).split(/([A-Z][a-z]*)/).slice(1);
-//   for (let index in strArr) {
-//     if (!strArr[index].length) {
-//       strArr[index] = multiplier;
-//     } else if (Number(strArr[index])) {
-//       strArr[index] = Number(strArr[index]) * multiplier;
-//     }
-//   }
-//   return atomStr.substring(0, openIndex) + strArr.join('') + atomStr.substring(lastIndex + 1);
-// }
-
-// function combineAtoms(atomStr) {
-//   let strArr = atomStr.split(/([A-Z][a-z]*)/);
-//   strArr = strArr.filter(value => value.length);
-//   let combinedAtoms = {};
-//   for (let index = 0; index < strArr.length; index++) {
-//     if (!Number(strArr[index])) {
-//       if (combinedAtoms[strArr[index]] && Number(strArr[index + 1])) {
-//         combinedAtoms[strArr[index]] += Number(strArr[index + 1]);
-//       } else if (combinedAtoms[strArr[index]] && !Number(strArr[index + 1])) {
-//         combinedAtoms[strArr[index]] += 1;
-//       } else if (!combinedAtoms[strArr[index]] && Number(strArr[index + 1])) {
-//         combinedAtoms[strArr[index]] = Number(strArr[index + 1]);
-//       } else {
-//         combinedAtoms[strArr[index]] = 1;
-//       }
-//     }
-//   }
-//   return combinedAtoms;
-// }
-
-// function sortAtoms(atomObj) {
-//   let atomArr = [];
-//   for (atom in atomObj) {
-//     atomArr.push([atom, atomObj[atom]]);
-//   }
-//   atomArr = atomArr.sort((a, b) => {
-//     if (a[0] > b [0]) {
-//       return 1;
-//     } else {
-//       return -1;
-//     }
-//   });
-//   atomArr = atomArr.flat().filter(value => value !== 1).join('');
-//   return atomArr;
-// }
-
   </script>
 </body>
 </html>
