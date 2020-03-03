@@ -8,9 +8,18 @@
 <body>
   <script>
 
-let atoms = "Fe(O(C)4H)2SO4";
-console.log(parseAtoms(atoms));
+let atoms = "K4(ON(SeO3)2)2";
+console.log(atoms);
 
+while (/\((\w*)\)(\d)/.test(atoms)) {
+  const match = (atoms.match(/\((\w*)\)(\d)/));
+  let innerArr = match[1].split(/([A-Z][a-z]*)/g).slice(1);
+  const multiplier = Number(match[2]);
+  innerArr = innerArr.map(char => (char.length ? char : '1'));
+  innerArr = innerArr.map(char => Number(char) ? (Number(char)) * multiplier : char);
+  atoms = atoms.replace(match[0], innerArr.join(''));
+  console.log(match[0], atoms);
+}
 
 
 // function parseAtoms(atoms) {
