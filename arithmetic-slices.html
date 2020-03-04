@@ -9,7 +9,11 @@
   <div>
     <a href="https://leetcode.com/problems/arithmetic-slices/">LeetCode Link</a>
     <p>
-      Arithmetic Slices
+      An arithmetic series is a series of at least three numbers with a common incrementor between them.
+      For example <b>1,-1,-3</b> is an arithmetic series with the incrementor <b>-2</b>
+      Numbers should be a list of positive or negative integers separated by commas.
+      Clicking Find Slices will return the count and a list of every slice of at least three numbers forming an arithmetic series.
+      All characters other than integers, commas, and <b>-</b> will be ignored.
     </p>
     <hr>
   </div>
@@ -22,25 +26,29 @@
     function handleClick() {
       let numbers = document.getElementById('numbers').value;
       let formattedNums = '';
-      while(/\-?\d\,?/.test(numbers)) {
-        formattedNums += numbers.match(/\-?\d\,?/)[0];
-        numbers = numbers.replace(/\-?\d\,?/, '');
+      while(/\-?\d/.test(numbers)) {
+        formattedNums += numbers.match(/\-?\d+/)[0] + ',';
+        numbers = numbers.replace(/\-?\d+/, '');
       }
-      console.log('Num:', numbers, ' Formatted:', formattedNums);
+      formattedNums = formattedNums.split(',').filter(char => char.length).map(num => Number(num));
+      const output = findSlices(formattedNums);
+      const response = `There are ${output.length} arithmetic slices: ${output.join(' | ')}`;
+      document.getElementById('output').textContent = response;
     }
-    const test = [1,2,3,4];
-    let solutions = [];
-    let counter = 0;
-    for (let index = 0; index < test.length - 2; index++) {
-      if  ( (test[index + 2] - test[index + 1]) === (test[index + 1] - test[index]) ) {
-        let secondIndex = index + 2;
-        let diff = test[index + 1] - test[index];
-        while (test[secondIndex] && (test[secondIndex] - test[secondIndex - 1]) === diff) {
-          counter++;
-          secondIndex++;
-          solutions.push(test.slice(index, secondIndex));
+
+    function findSlices(numbers) {
+      let solutions = [];
+      for (let index = 0; index < numbers.length - 2; index++) {
+        if  ( (numbers[index + 2] - numbers[index + 1]) === (numbers[index + 1] - numbers[index]) ) {
+          let secondIndex = index + 2;
+          let diff = numbers[index + 1] - numbers[index];
+          while (numbers[secondIndex] && (numbers[secondIndex] - numbers[secondIndex - 1]) === diff) {
+            secondIndex++;
+            solutions.push(numbers.slice(index, secondIndex));
+          }
         }
       }
+      return solutions;
     }
   </script>
 </body>
