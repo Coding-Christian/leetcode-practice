@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arithmetic Slices</title>
+</head>
+<body>
+
+  <script>
+    const test = [1,2,3,4];
+    let solutions = [];
+    let counter = 0;
+    for (let index = 0; index < test.length - 2; index++) {
+      if  ( (test[index + 2] - test[index + 1]) === (test[index + 1] - test[index]) ) {
+        let secondIndex = index + 2;
+        let diff = test[index + 1] - test[index];
+        while (test[secondIndex] && (test[secondIndex] - test[secondIndex - 1]) === diff) {
+          counter++;
+          secondIndex++;
+          solutions.push(test.slice(index, secondIndex));
+        }
+      }
+    }
+    console.log(counter, solutions);
+  </script>
+</body>
+</html>
