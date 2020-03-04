@@ -19,6 +19,15 @@
   <p id="output"></p>
 
   <script>
+    function handleClick() {
+      let numbers = document.getElementById('numbers').value;
+      let formattedNums = '';
+      while(/\-?\d\,?/.test(numbers)) {
+        formattedNums += numbers.match(/\-?\d\,?/)[0];
+        numbers = numbers.replace(/\-?\d\,?/, '');
+      }
+      console.log('Num:', numbers, ' Formatted:', formattedNums);
+    }
     const test = [1,2,3,4];
     let solutions = [];
     let counter = 0;
