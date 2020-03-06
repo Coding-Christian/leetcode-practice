@@ -7,7 +7,13 @@
 </head>
 <body>
   <script>
-
+    const test = '128';
+    for (let digit = 0; digit < test.length; digit++) {
+      if (Number(test) % Number(test[digit])) {
+        console.log('Fail: ', test[digit]);
+      }
+    }
+    console.log('Success');
   </script>
 </body>
 </html>
