@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self Dividing Numbers</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/self-dividing-numbers/">LeetCode Link</a>
+      <p>
+        A self dividing number is a number which is evenly divisible by each of its digits.
+        For example <b>128</b> is divisible by <b>1</b> (128/1 = 128), <b>2</b> (128/2 = 64), and <b>8</b> (128/8 = 16).
+        The two inputs under Range should be integers defining the minimum and maxiumum numbers of the desired search range.
+        Clicking Find Self Dividing will return a list of all the self dividing numbers within the range (inclusive).
+        Non-integer numbers will be rounded down.
+      </p>
+    <hr>
+  </div>
+  <h3>Range</h3>
+  <input type="number" name="min" id="min" min="1" max="10000">
+  to
+  <input type="number" name="max" id="max" min="1" max="10000">
+  <button id="findSelfDividing" onclick="handleClick()">Find Self Dividing</button>
+  <p id="output"></p>
+  <script>
+    function handleClick() {
+      const min = Math.floor(Number(document.getElementById('min').value));
+      const max = Math.floor(Number(document.getElementById('max').value));
+      const range = max >= min ? [min, max] : [max, min];
+      let matches = [];
+      for (let number = range[0]; number <= range[1]; number++) {
+        if (checkSelfDividing(number)) {
+          matches.push(number);
+        }
+      }
+      document.getElementById('output').textContent = `There are ${matches.length} self dividing numbers bewteen ${min} and ${max}: ${matches.join(', ')}.`;
+    }
+
+    function checkSelfDividing(num) {
+      const numString = String(num);
+      if (numString.includes('0')) {
+        return false;
+      }
+      for (let digit = 0; digit < numString.length; digit++) {
+        if (Number(numString) % Number(numString[digit])) {
+          return false;
+        }
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
