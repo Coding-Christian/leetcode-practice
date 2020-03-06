@@ -7,13 +7,27 @@
 </head>
 <body>
   <script>
-    const test = '128';
-    for (let digit = 0; digit < test.length; digit++) {
-      if (Number(test) % Number(test[digit])) {
-        console.log('Fail: ', test[digit]);
+    const range = [1, 10000];
+    let matches = [];
+    for (let number = range[0]; number <= range[1]; number++) {
+      if (checkSelfDividing(number)) {
+        matches.push(number);
       }
     }
-    console.log('Success');
+    console.log(matches);
+
+    function checkSelfDividing(num) {
+      const numString = String(num);
+      if (/[2468]/.test(numString) && /[3579]/.test(numString)) {
+        return false;
+      }
+      for (let digit = 0; digit < numString.length; digit++) {
+        if (Number(numString) % Number(numString[digit])) {
+          return false;
+        }
+      }
+      return true;
+    }
   </script>
 </body>
 </html>
