@@ -54,6 +54,27 @@
       }
       return curr.val;
     }
+
+    MyLinkedList.prototype.addAtIndex = function(index, val) {
+      if (index > this.length || index < 0 || typeof index !== 'number' || typeof val === 'undefined') {
+        return;
+      }
+      if (index === 0) {
+        this.addToHead(val);
+      } else if (index === this.length) {
+        this.addToTail(val);
+      } else {
+        const node = new Node(val);
+        let prev, curr = this.head;
+        for (let pos = 0; pos < index; pos++) {
+          prev = curr;
+          curr = curr.next;
+        }
+        prev.next = node;
+        node.next = curr;
+        this.length++;
+      }
+    }
   </script>
 </body>
 </html>
