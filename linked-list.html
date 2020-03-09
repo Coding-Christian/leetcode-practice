@@ -45,7 +45,7 @@
     }
 
     MyLinkedList.prototype.get = function(index) {
-      if (index >= this.length || index < 0) {
+      if (index >= this.length || index < 0 || typeof index !== 'number') {
         return;
       }
       let curr = this.head;
@@ -73,6 +73,24 @@
         prev.next = node;
         node.next = curr;
         this.length++;
+      }
+    }
+
+    MyLinkedList.prototype.deleteAtIndex = function(index) {
+      if (index > this.length || index < 0 || typeof index !== 'number') {
+        return;
+      }
+      if (index === 0) {
+        this.head = this.head.next;
+        this.length--;
+      } else {
+        let prev, curr = this.head;
+        for (let pos = 0; pos < index; pos++) {
+          prev = curr;
+          curr = curr.next;
+        }
+        prev.next = curr.next;
+        this.length--;
       }
     }
   </script>
