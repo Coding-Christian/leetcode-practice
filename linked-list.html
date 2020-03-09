@@ -17,6 +17,12 @@
       this.next;
     }
 
+    MyLinkedList.prototype.addToHead = function(val) {
+      const node = new Node(val);
+      node.next = this.head;
+      this.head = node;
+      length++;
+    }
   </script>
 </body>
 </html>
