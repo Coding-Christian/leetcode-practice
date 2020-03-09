@@ -172,7 +172,7 @@
     }
 
     MyLinkedList.prototype.deleteAtIndex = function(index) {
-      if (index > this.length || index < 0 || typeof index !== 'number') {
+      if (index >= this.length || index < 0 || typeof index !== 'number') {
         return;
       }
       if (index === 0) {
