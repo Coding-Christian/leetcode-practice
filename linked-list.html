@@ -18,10 +18,20 @@
     }
 
     MyLinkedList.prototype.addToHead = function(val) {
+      if (typeof val === 'undefined') { return; }
       const node = new Node(val);
       node.next = this.head;
       this.head = node;
-      length++;
+      this.length++;
+    }
+
+    MyLinkedList.prototype.addToTail = function(val) {
+      if (typeof val === 'undefined') { return; }
+      const node = new Node(val);
+      let curr = this.head;
+      while (curr.next) { curr = curr.next; }
+      curr.next = node;
+      this.length++;
     }
   </script>
 </body>
