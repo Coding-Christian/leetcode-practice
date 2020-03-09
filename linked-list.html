@@ -18,7 +18,9 @@
     }
 
     MyLinkedList.prototype.addToHead = function(val) {
-      if (typeof val === 'undefined') { return; }
+      if (typeof val === 'undefined') {
+        return;
+      }
       const node = new Node(val);
       node.next = this.head;
       this.head = node;
@@ -26,12 +28,31 @@
     }
 
     MyLinkedList.prototype.addToTail = function(val) {
-      if (typeof val === 'undefined') { return; }
+      if (typeof val === 'undefined') {
+        return;
+      }
       const node = new Node(val);
-      let curr = this.head;
-      while (curr.next) { curr = curr.next; }
-      curr.next = node;
+      if (!this.head) {
+        this.head = node;
+      } else {
+        let curr = this.head;
+        while (curr.next) {
+          curr = curr.next;
+        }
+        curr.next = node;
+      }
       this.length++;
+    }
+
+    MyLinkedList.prototype.get = function(index) {
+      if (index >= this.length || index < 0) {
+        return;
+      }
+      let curr = this.head;
+      for (pos = 0; pos < index; pos++) {
+        curr = curr.next;
+      }
+      return curr.val;
     }
   </script>
 </body>
