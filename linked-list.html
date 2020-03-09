@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linked List (ES5)</title>
+</head>
+<body>
+  <div>
+    <p>*Please use the console to interact with the MyLinkedList Class.</p>
+    <section id="node">
+      <h1>Node <i>[class]</i></h1>
+      <h2>Constructor</h2>
+      <h3><code>new Node()</code></h3>
+      <p>Creates a new instance of a node.</p>
+
+      <hr>
+
+      <h2>Properties</h2>
+      <h3><code>Node.val</code> <i>[var]</i></h3>
+      <p>The value of the current instance of the node. Can be any time except <code>undefined</code>.</p>
+
+      <h3><code>Node.next</code> <i>[object]</i></h3>
+      <p>A reference to the next node in an instance of <code><a href="#myLinkedList">MyLinkedList</a></code> containing the current node. If the current node is the last node, next is <code>undefined</code>.</p>
+    </section>
+    <hr>
+    <hr>
+    <section id="myLinkedList">
+      <h1>MyLinkedList <i>[class]</i></h1>
+      <h2>Constructor</h2>
+      <h3><code>new MyLinkedList()</code></h3>
+      <p>Creates a new instance of a linked list.</p>
+      <hr>
+      <h2>Properties</h2>
+      <h3><code>MyLinkedList.head</code> <i>[object]</i></h3>
+      <p>A reference to the first <code><a href="#node">Node</a></code> of the current instance of the linked list.</p>
+
+      <h3><code>MyLinkedList.length</code> <i>[number]</i></h3>
+      <p>The total number of nodes in the current instance of the linked list.</p>
+      <hr>
+      <h2>Methods</h2>
+      <h3><code>MyLinkedList.get(<i>index</i>)</code></h3>
+      <h4>Parameters</h4>
+      <h5>index <i>[number]</i></h5>
+      <p>The index of <code><a href="#node">Node</a></code> in the linked list to retrieve the value from.</p>
+
+      <h4>Returns</h4>
+      <p>
+        The <code>val</code> property of the <code><a href="#node">Node</a></code> at the specified index of the linked list.
+        If the provided index is not in the range of the linked list, <code>undefined</code> will be returned.
+      </p>
+      <br>
+      <h3><code>MyLinkedList.addToHead(val)</code></h3>
+      <h4>Parameters</h4>
+      <h5>val <i>[var]</i></h5>
+      <p>
+        The value assigned to the <code>val</code> property of a new <code><a href="#node">Node</a></code>, added to the beginning of the current of the linked list.
+        If <code>typeof val</code> is <code>undefined</code>, no new node will be created.
+      </p>
+
+      <h4>Returns</h4>
+      <p>Returns <code>undefined</code>.</p>
+      <br>
+      <h3><code>MyLinkedList.addToTail(val)</code></h3>
+      <h4>Parameters</h4>
+      <h5>val <i>[var]</i></h5>
+      <p>
+        The value assigned to the <code>val</code> property of a new <code><a href="#node">Node</a></code>, added to the end of the current of the linked list.
+        If <code>typeof val</code> is <code>undefined</code>, no new node will be created.
+      </p>
+
+      <h4>Returns</h4>
+      <p>Returns <code>undefined</code>.</p>
+      <br>
+      <h3><code>MyLinkedList.addAtIndex(index, val)</code></h3>
+      <h4>Parameters</h4>
+      <h5>index <i>[number]</i></h5>
+      <p>
+        The index in the linked list before which to add a new <code><a href="#node">Node</a></code>.
+        If <code>typeof index</code> is not <code>"number"</code> or the index is out of range of the linked list, no new node will be created.
+      </p>
+
+      <h5>val <i>[var]</i></h5>
+      <p>
+        The value assigned to the <code>val</code> property of a new <code><a href="#node">Node</a></code>, added before the specified index in the current linked list.
+        If <code>typeof val</code> is <code>undefined</code>, no new node will be created.
+      </p>
+
+      <h4>Returns</h4>
+      <p>Returns <code>undefined</code>.</p>
+      <br>
+      <h3><code>MyLinkedList.deleteAtIndex(index)</code></h3>
+      <h4>Parameters</h4>
+      <h5>index <i>[number]</i></h5>
+      <p>
+        The index in the linked list at which to delete an existing <code><a href="#node">Node</a></code>.
+        If <code>typeof index</code> is not <code>"number"</code> or the index is out of range of the linked list, no node will be deleted.
+      </p>
+
+      <h4>Returns</h4>
+      <p>Returns <code>undefined</code>.</p>
+    </section>
+  </div>
+  <script>
+    function MyLinkedList() {
+      this.head;
+      this.length = 0;
+    }
+
+    function Node(val) {
+      this.val = val;
+      this.next;
+    }
+
+    MyLinkedList.prototype.addToHead = function(val) {
+      if (typeof val === 'undefined') {
+        return;
+      }
+      const node = new Node(val);
+      node.next = this.head;
+      this.head = node;
+      this.length++;
+    }
+
+    MyLinkedList.prototype.addToTail = function(val) {
+      if (typeof val === 'undefined') {
+        return;
+      }
+      const node = new Node(val);
+      if (!this.head) {
+        this.head = node;
+      } else {
+        let curr = this.head;
+        while (curr.next) {
+          curr = curr.next;
+        }
+        curr.next = node;
+      }
+      this.length++;
+    }
+
+    MyLinkedList.prototype.get = function(index) {
+      if (index >= this.length || index < 0 || typeof index !== 'number') {
+        return;
+      }
+      let curr = this.head;
+      for (pos = 0; pos < index; pos++) {
+        curr = curr.next;
+      }
+      return curr.val;
+    }
+
+    MyLinkedList.prototype.addAtIndex = function(index, val) {
+      if (index > this.length || index < 0 || typeof index !== 'number' || typeof val === 'undefined') {
+        return;
+      }
+      if (index === 0) {
+        this.addToHead(val);
+      } else if (index === this.length) {
+        this.addToTail(val);
+      } else {
+        const node = new Node(val);
+        let prev, curr = this.head;
+        for (let pos = 0; pos < index; pos++) {
+          prev = curr;
+          curr = curr.next;
+        }
+        prev.next = node;
+        node.next = curr;
+        this.length++;
+      }
+    }
+
+    MyLinkedList.prototype.deleteAtIndex = function(index) {
+      if (index > this.length || index < 0 || typeof index !== 'number') {
+        return;
+      }
+      if (index === 0) {
+        this.head = this.head.next;
+        this.length--;
+      } else {
+        let prev, curr = this.head;
+        for (let pos = 0; pos < index; pos++) {
+          prev = curr;
+          curr = curr.next;
+        }
+        prev.next = curr.next;
+        this.length--;
+      }
+    }
+  </script>
+</body>
+</html>
