@@ -7,7 +7,30 @@
 </head>
 <body>
   <script>
+    const test = 'RUDLL';
+    const test2 = 'UUDDLRLR';
+    console.log('Test 1:', madeRoundTrip(test), ' Test 2:', madeRoundTrip(test2));
 
+    function madeRoundTrip(moves) {
+      let x = 0, y = 0;
+      for (let move = 0; move < moves.length; move++) {
+        switch (moves[move]) {
+          case "U":
+            x++;
+            break;
+          case "D":
+            x--;
+            break;
+          case "R":
+            y++;
+            break;
+          case "L":
+            y--;
+            break;
+        }
+      }
+      return (x === 0 && y === 0);
+    }
   </script>
 </body>
 </html>
