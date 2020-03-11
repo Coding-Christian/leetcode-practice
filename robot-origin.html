@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robot Round Trip</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/robot-return-to-origin/">LeetCode Link</a>
+    <p>
+      Directions should be a series of characters consisting of <b>U, D, L</b> and <b>R</b>.
+      These characters represent a series of instructions for the movement of a hypothetical robot.
+      <b>U</b> stands for Up, <b>D</b> for down, <b>L</b> for left, and <b>R</b> for right.
+      Clicking Find if Round Trip will return whether or not the robot returns to the origin after following the series of instructions.
+      Any other characters entered besides capital <b>U, D, L</b> and <b>R</b> will be ignored.
+    </p>
+    <hr>
+  </div>
+  <h3>Directions</h3>
+  <input type="text" name="directions" id="directions" maxlength="100">
+  <button id="findIfRoundTrip" onclick="handleClick()">Find If Round Trip</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let directions = document.getElementById('directions').value;
+      directions = directions.replace(/[^UDLR]/g, '');
+      const output = madeRoundTrip(directions);
+      const response = `The robot does ${output[0] ? '' : 'not'} make a round trip. Its ending coordinates are [${output[1]}].`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function madeRoundTrip(moves) {
+      let x = 0, y = 0;
+      for (let move = 0; move < moves.length; move++) {
+        switch (moves[move]) {
+          case "U":
+            x++;
+            break;
+          case "D":
+            x--;
+            break;
+          case "R":
+            y++;
+            break;
+          case "L":
+            y--;
+            break;
+        }
+      }
+      return [(x === 0 && y === 0), [x, y]];
+    }
+  </script>
+</body>
+</html>
