@@ -7,7 +7,7 @@
 </head>
 <body>
   <div>
-    <a href="https://leetcode.com/problems/split-a-string-in-balanced-strings/">LeetCode Link</a>
+    <a href="https://leetcode.com/problems/robot-return-to-origin/">LeetCode Link</a>
     <p>
 
     </p>
@@ -19,9 +19,13 @@
   <p id="output"></p>
 
   <script>
-    const test = 'RUDLL';
-    const test2 = 'UUDDLRLR';
-    console.log('Test 1:', madeRoundTrip(test), ' Test 2:', madeRoundTrip(test2));
+    function handleClick() {
+      let directions = document.getElementById('directions').value;
+      directions = directions.replace(/[^UDLR]/g, '');
+      const output = madeRoundTrip(directions);
+      const response = `The robot does ${output[0] ? '' : 'not'} make a round trip. Its ending coordinates are [${output[1]}].`;
+      document.getElementById('output').textContent = response;
+    }
 
     function madeRoundTrip(moves) {
       let x = 0, y = 0;
@@ -41,7 +45,7 @@
             break;
         }
       }
-      return (x === 0 && y === 0);
+      return [(x === 0 && y === 0), [x, y]];
     }
   </script>
 </body>
