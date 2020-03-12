@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reverse Words</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/reverse-words-in-a-string/">LeetCode Link</a>
+    <p>
+      Sentence can be any series of characters and spaces.
+      Clicking Reverse Words will reverse the order of words entered into the sentence field.
+      Additionally, leading and trailing spaces will be removed and spaces one after another will be reduced to a single space.
+    </p>
+    <hr>
+  </div>
+  <h3>Sentence</h3>
+  <input type="text" name="sentence" id="sentence" maxlength="100">
+  <button id="reverseWords" onclick="handleClick()">Reverse Words</button>
+  <p id="output"></p>
+  <script>
+    function handleClick() {
+      const sentence = document.getElementById('sentence').value;
+      const output = reverseWords(sentence);
+      document.getElementById('output').textContent = output;
+    }
+
+    function reverseWords(sentence) {
+      return sentence.split(' ').filter(word => word.length).reverse().join(' ');
+    }
+    console.log(reverseWords(test));
+  </script>
+</body>
+</html>
