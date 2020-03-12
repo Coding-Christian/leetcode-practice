@@ -8,8 +8,11 @@
 <body>
   <script>
     const test = 'A good test string, including punctuation!';
-    const output = test.split(' ').filter(word => word.length).reverse().join(' ');
-    console.log(output);
+
+    function reverseWords(sentence) {
+      return sentence.split(' ').filter(word => word.length).reverse().join(' ');
+    }
+    console.log(reverseWords(test));
   </script>
 </body>
 </html>
