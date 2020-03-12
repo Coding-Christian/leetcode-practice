@@ -20,7 +20,11 @@
   <button id="reverseWords" onclick="handleClick()">Reverse Words</button>
   <p id="output"></p>
   <script>
-    const test = 'A good test string, including punctuation!';
+    function handleClick() {
+      const sentence = document.getElementById('sentence').value;
+      const output = reverseWords(sentence);
+      document.getElementById('output').textContent = output;
+    }
 
     function reverseWords(sentence) {
       return sentence.split(' ').filter(word => word.length).reverse().join(' ');
