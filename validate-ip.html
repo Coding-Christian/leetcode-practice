@@ -6,6 +6,19 @@
   <title>Validate IP Address</title>
 </head>
 <body>
+  <div>
+    <a href="https://leetcode.com/problems/validate-ip-address/">LeetCode Link</a>
+    <p>
+      IP Address can be any combination of characters.
+      Clicking Validate IP Address will determine if the sequence of characters is a valid <b>IPv4</b>, <b>IPv6</b>, or neither.
+    </p>
+    <hr>
+  </div>
+  <h3>IP Address</h3>
+  <input type="text" name="ipAddress" id="ipAddress" maxlength="100">
+  <button id="validateIp" onclick="handleClick()">Validate IP Address</button>
+  <p id="output"></p>
+
   <script>
     console.log(validateIp("172.16.254.1"));
     console.log(validateIp("2001:0db8:85a3:0:0:8A2E:0370:7334"));
