@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate IP Address</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/validate-ip-address/">LeetCode Link</a>
+    <p>
+      IP Address can be any combination of characters.
+      Clicking Validate IP Address will determine if the sequence of characters is a valid <b>IPv4</b>, <b>IPv6</b>, or neither.
+    </p>
+    <hr>
+  </div>
+  <h3>IP Address</h3>
+  <input type="text" name="ipAddress" id="ipAddress" maxlength="100">
+  <button id="validateIp" onclick="handleClick()">Validate IP Address</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      const ipAddress = document.getElementById('ipAddress').value;
+      const output = validateIp(ipAddress);
+      const response = output.length === 4 ? `Valid ${output} Address` : output;
+      document.getElementById('output').textContent = response;
+    }
+
+    function validateIp(ipAddress) {
+      const ipv4 = /^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9]|0)\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9]|0)$/;
+      const ipv6 = /^([0-9a-fA-F]{1,4}\:){7}[0-9a-fA-F]{1,4}$/;
+      if (ipv4.test(ipAddress)) { return 'IPv4'; }
+      if (ipv6.test(ipAddress)) { return 'IPv6'; }
+      return 'Neither';
+    };
+  </script>
+</body>
+</html>
