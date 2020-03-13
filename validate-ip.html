@@ -20,9 +20,12 @@
   <p id="output"></p>
 
   <script>
-    console.log(validateIp("172.16.254.1"));
-    console.log(validateIp("2001:0db8:85a3:0:0:8A2E:0370:7334"));
-    console.log(validateIp("256.256.256.256"));
+    function handleClick() {
+      const ipAddress = document.getElementById('ipAddress').value;
+      const output = validateIp(ipAddress);
+      const response = output.length === 4 ? `Valid ${output} Address` : output;
+      document.getElementById('output').textContent = response;
+    }
 
     function validateIp(ipAddress) {
       const ipv4 = /^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9]|0)\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9]|0)$/;
