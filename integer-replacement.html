@@ -7,7 +7,28 @@
 </head>
 <body>
   <script>
+    console.log(integerReplacement(97));
 
+    function integerReplacement(n) {
+      let num = n;
+      let steps = 0;
+      while (num > 1) {
+        if (num % 2) {
+          const plus = integerReplacement(num + 1);
+          const minus = integerReplacement(num - 1);
+          if (plus > minus) {
+            steps += minus + 1;
+          } else {
+            steps += plus + 1;
+          }
+          num = 1;
+        } else {
+          num /= 2;
+          steps++;
+        }
+      }
+      return steps;
+    };
   </script>
 </body>
 </html>
