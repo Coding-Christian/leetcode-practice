@@ -6,6 +6,22 @@
   <title>Integer Replacement</title>
 </head>
 <body>
+  <div>
+    <a href="https://leetcode.com/problems/integer-replacement/">LeetCode Link</a>
+    <p>
+      Number should be a positive integer.
+      Clicking Integer Replacement will return the <b>minimum</b> number of steps required to reduce the integer to zero according to the following rules.
+      If the number is even, the next step will begin at <b>number / 2</b>.
+      If the number is odd, the next step can begin at either <b>number + 1</b> or <b>number - 1</b>.
+      Any non-integer characters entered will be ignored.
+    </p>
+    <hr>
+  </div>
+  <h3>Number</h3>
+  <input type="text" name="number" id="number" maxlength="100">
+  <button id="integerReplacement" onclick="handleClick()">Integer Replacement</button>
+  <p id="output"></p>
+
   <script>
     console.log(integerReplacement(97));
 
