@@ -23,7 +23,13 @@
   <p id="output"></p>
 
   <script>
-    console.log(integerReplacement(97));
+    function handleClick() {
+      let number = document.getElementById('number').value;
+      number = number.replace(/[^\d]/g, '');
+      const output = integerReplacement(Number(number));
+      const response = `It takes ${output} steps to reduce ${number} to 1.`;
+      document.getElementById('output').textContent = response;
+    }
 
     function integerReplacement(n) {
       let num = n;
