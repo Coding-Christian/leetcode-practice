@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integer Replacement</title>
+</head>
+<body>
+  <div>
+    <a href="https://leetcode.com/problems/integer-replacement/">LeetCode Link</a>
+    <p>
+      Number should be a positive integer.
+      Clicking Integer Replacement will return the <b>minimum</b> number of steps required to reduce the integer to zero according to the following rules.
+      If the number is even, the next step will begin at <b>number / 2</b>.
+      If the number is odd, the next step can begin at either <b>number + 1</b> or <b>number - 1</b>.
+      Any non-integer characters entered will be ignored.
+    </p>
+    <hr>
+  </div>
+  <h3>Number</h3>
+  <input type="text" name="number" id="number" maxlength="100">
+  <button id="integerReplacement" onclick="handleClick()">Integer Replacement</button>
+  <p id="output"></p>
+
+  <script>
+    function handleClick() {
+      let number = document.getElementById('number').value;
+      number = number.replace(/[^\d]/g, '');
+      const output = integerReplacement(Number(number));
+      const response = `It takes ${output} steps to reduce ${number} to 1.`;
+      document.getElementById('output').textContent = response;
+    }
+
+    function integerReplacement(n) {
+      let num = n;
+      let steps = 0;
+      while (num > 1) {
+        if (num % 2) {
+          const plus = integerReplacement(num + 1);
+          const minus = integerReplacement(num - 1);
+          if (plus > minus) {
+            steps += minus + 1;
+          } else {
+            steps += plus + 1;
+          }
+          num = 1;
+        } else {
+          num /= 2;
+          steps++;
+        }
+      }
+      return steps;
+    };
+  </script>
+</body>
+</html>
