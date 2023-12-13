@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>___TITLE___</title>
+  <style>
+    #content > * {
+      display: block;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="prompt">
+    <h1>___TITLE___</h1>
+    <p id="description">
+      ___DESCRIPTION___
+      <a href="___URL___">[link]</a>
+    </p>
+    <hr>
+  </div>
+  <div id="content">
+    <label>
+      ___LABEL___:
+      <input type="text" name="input" id="input" style="display: block;">
+    </label>
+    <button id="submit" onclick="handleClick()">Submit</button>
+    <p id="output"></p>
+  </div>
+
+  <script>
+    function value(id, Constructor) {
+      const val = document.getElementById(id).value;
+      return Constructor ? Constructor(val) : val;
+    }
+
+    function output(content) {
+      document.getElementById('output').textContent = content;
+    }
+
+    function handleClick() {
+      try {
+        const input = value("input");
+        const output = input;
+        output(output);
+      } catch (e) {
+        output(e);
+      }
+    }
+
+    //___SOLUTION___
+  </script>
+</body>
+</html>
