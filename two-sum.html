@@ -3,50 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Two Sum</title>
+  <style>
+    #content > * {
+      display: block;
+      margin: 5px;
+    }
+  </style>
 </head>
 <body>
-  <div>
-    <a href="https://leetcode.com/problems/two-sum/">LeetCode Link</a>
-    <p>
-      Numbers is a list of integers separated, by commas, to be searched.
-      Any character not a number or a comma will be ignored.
-      Target is an integer that should be the sum of two numbers in 'Numbers'.
-      Clicking Find Target will search the list of Numbers for two that add up to the target.
-      Their position in the list will be returned if a match is found.
+  <div id="prompt">
+    <h1>Two Sum</h1>
+    <p id="description">
+      Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to <code>target</code>.
+      You may assume that each input would have <strong>exactly one solution</strong>, and you may not use the same element twice.
+      You can return the answer in any order. <a href="https://leetcode.com/problems/two-sum/">[link]</a>
     </p>
     <hr>
   </div>
-  <h3>Numbers</h3>
-  <input type="text" name="numbers" id="numbers">
-  <h3>Target</h3>
-  <input type="text" name="target" id="target">
-  <button id="findTarget" onclick="clickHandler()">Find Target</button>
-  <p id="output"></p>
+  <div id="content">
+    <label>
+      nums:
+      <input type="text" name="input" id="input" style="display: block;">
+    </label>
+    <label>
+      target:
+      <input type="text" name="input2" id="input2" style="display: block;">
+    </label>
+    <button id="submit" onclick="handleClick()">Submit</button>
+    <p id="output"></p>
+  </div>
 
   <script>
-  function clickHandler() {
-    let numbers = document.getElementById('numbers').value;
-    numbers = numbers.replace(/[^\d\,]/g, "");
-    numbers = numbers.split(',');
-    let target = Number(document.getElementById('target').value);
-    const match = findTarget(numbers, target);
-    document.getElementById('output').textContent = match;
-  }
+    function value(id) {
+      return document.getElementById(id).value;
+    }
 
-  function findTarget(numArr, target) {
-    for (let firstIndex = 0; firstIndex < numArr.length; firstIndex++) {
-      for (let secondIndex = firstIndex + 1; secondIndex < numArr.length; secondIndex++) {
-        const num1 = Number(numArr[firstIndex]);
-        const num2 = Number(numArr[secondIndex]);
-        if (num1 + num2 === target) {
-          return `The numbers in positions ${firstIndex + 1} and ${secondIndex + 1} add up to ${target}`;
-        }
+    function output(content) {
+      document.getElementById("output").textContent = (typeof content === "string") ? content : JSON.stringify(content);
+    }
+
+    function handleClick() {
+      try {
+        const nums = JSON.parse(value("input"));
+        const target = Number(value("input2"));
+        output(twoSum(nums, target));
+      } catch (e) {
+        output(e);
       }
     }
-    return `No pair of numbers adds up to ${target}`;
-  }
+
+    function twoSum(nums, target) {
+      const length = nums.length;
+      for (let i=0; i<length; i++) {
+        const num = nums[i];
+        for (let j=i+1; j<length; j++) {
+          const num2 = nums[j];
+          if (num+num2 === target) {
+              return [i,j];
+          }
+        }
+        continue;
+      }
+    };
   </script>
 </body>
 </html>
