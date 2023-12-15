@@ -35,8 +35,9 @@
   </div>
 
   <script>
-    function value(id) {
-      return document.getElementById(id).value;
+    function value(id, Interface) {
+      const val = document.getElementById(id).value;
+      return Interface ? Interface(val) : val;
     }
 
     function output(content) {
@@ -46,7 +47,7 @@
     function handleClick() {
       try {
         const nums = JSON.parse(value("input"));
-        const target = Number(value("input2"));
+        const target = value("input2", Number);
         output(twoSum(nums, target));
       } catch (e) {
         output(e.message);
