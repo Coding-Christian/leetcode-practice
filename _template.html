@@ -30,9 +30,9 @@
   </div>
 
   <script>
-    function value(id, Constructor) {
+    function value(id, Interface) {
       const val = document.getElementById(id).value;
-      return Constructor ? Constructor(val) : val;
+      return Interface ? Interface(val) : val;
     }
 
     function output(content) {
